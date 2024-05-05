@@ -1,10 +1,5 @@
-#![allow(unused_imports)]
 use std::{
-    error::Error,
-    io,
-    sync::mpsc::{self, channel},
-    thread,
-    time::{Duration, Instant},
+    error::Error, io, sync::mpsc::channel, thread, time::{Duration, Instant}
 };
 
 use crossterm::{
@@ -14,15 +9,15 @@ use crossterm::{
     ExecutableCommand,
 };
 use invaders::{
-    frame::{self, new_frame, Drawable}, invaders::InvadersManager, player::Player, render::{self, render}
+    frame::{self, new_frame, Drawable}, invaders::InvadersManager, player::Player, render
 };
 use rusty_audio::Audio;
 
 fn main() -> Result<(), Box<dyn Error>> {
     // Audio
     let mut audio = Audio::new();
-    audio.add("explode", "audios/explode_mohsin.wav");
-    audio.add("lose", "audios/lose_mohsin.wav");
+    audio.add("explode", "audios/explode.wav");
+    audio.add("lose", "audios/lose.wav");
     audio.add("win", "audios/win.wav");
     audio.add("pew", "audios/pew.wav");
     audio.add("startup", "audios/startup.wav");
@@ -38,7 +33,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     // Render Loop
     let (render_tx, render_rx) = channel();
-    let render_handle = thread::spawn(move || {
+    let _render_handle = thread::spawn(move || {
         let mut last_frame = frame::new_frame();
         let mut stdout = io::stdout();
         render::render(&mut stdout, &last_frame, &last_frame, true);
@@ -100,7 +95,6 @@ fn main() -> Result<(), Box<dyn Error>> {
 
         // Win or Loose 
         if invaders.all_killed(){
-            thread::sleep(Duration::from_millis(100));
             audio.play("win");
             break 'gameloop;
         }
@@ -111,8 +105,6 @@ fn main() -> Result<(), Box<dyn Error>> {
     }
 
     // Cleanup
-    drop(render_tx);
-    render_handle.join().unwrap();
     audio.wait();
     stdout.execute(LeaveAlternateScreen)?;
     stdout.execute(Show)?;
