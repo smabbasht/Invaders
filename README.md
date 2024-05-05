@@ -37,4 +37,8 @@ Controls are pretty intuitive:
 | `Space` or `Enter` | Shoot | 
 | `q` or `Esc` | Quit the Game, You lose in this case | 
 
-Have fun!
+***Have fun!***
+
+## Credits 
+- The voices are generated for free form the amazing tool [PlayHT](https://play.ht/studio/) 
+- The game is heavily inspired from the [Github Repo](https://github.com/cleancut/invaders) by Nathan Stocks. The game was essentially the final project for his course: [Ultimate Rust Crash Course](https://www.udemy.com/course/ultimate-rust-crash-course/) 
