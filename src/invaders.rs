@@ -81,7 +81,7 @@ impl InvadersManager {
             .map(|invaders| invaders.y)
             .max()
             .unwrap_or(0)
-            >= NUM_ROWS - 4
+            >= NUM_ROWS - 5
     }
     pub fn kill_invader(&mut self, x: usize, y: usize) -> bool {
         if let Some(idx) = self
